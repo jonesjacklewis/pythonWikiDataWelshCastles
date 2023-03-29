@@ -1,0 +1,10 @@
+SELECT ?item ?itemLabel ?locationLabel ?image WHERE {
+  ?item wdt:P31 wd:Q23413 .
+  ?item wdt:P4141|wdt:P2966 ?id .
+  FILTER (REGEX(lcase(?id), "welsh") || EXISTS { ?item wdt:P2966 [] }).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  OPTIONAL { ?item wdt:P131 ?location. }
+  OPTIONAL { ?item wdt:P276 ?location. }
+  OPTIONAL { ?item wdt:P18 ?image. }
+  FILTER (BOUND(?location))
+}
